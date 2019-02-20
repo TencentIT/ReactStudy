@@ -1,0 +1,72 @@
+需要注意的是在 render() 方法中，需要使用 this.props 替换 props：
+
+
+jsx 语法
+const element = <h1>Hello, world!</h1>;
+React DOM 使用 className 和 htmlFor 来做对应的属性。
+在 JSX 中不能使用 if else 语句，但可以使用 conditional (三元运算) 表达式来替代
+
+
+React 推荐使用内联样式。我们可以使用 camelCase 语法来设置内联样式. React 会在指定元素数字后自动添加 px 
+注释需要写在花括号中 {/*注释...*/}
+JSX 允许在模板中插入数组，数组会自动展开所有成员：
+
+注意，原生 HTML 元素名以小写字母开头，而自定义的 React 类名以大写字母开头，
+比如 HelloMessage 不能写成 helloMessage。除此之外还需要注意组件类只能包含一个顶层标签，否则也会报错。
+
+ class 属性需要写成 className ，for 属性需要写成 htmlFor ，这是因为 class 和 for 是 JavaScript 的保留字。
+
+ React 里，只需更新组件的 state，然后根据新的 state 重新渲染用户界面（不要操作 DOM）。
+
+  ES6 要求，子类的构造函数必须执行一次 super 函数，否则会报错。 所以这里constructor里面必须写句 super(props);
+  子组件继承父组件的话， 如果没写 constructor 的话 ，默认还有一个 constructor
+  class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {date: new Date()}; // 初
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Hello, world!</h1>
+        <h2>现在是 {this.state.date.toLocaleTimeString()}.</h2>
+      </div>
+    );
+  }
+}
+
+state 和 props 主要的区别在于 props 是不可变的，而 state 可以根据与用户交互来改变。
+这就是为什么有些容器组件需要定义 state 来更新和修改数据。 而子组件只能通过 props 来传递数据。
+
+可以通过组件类的 defaultProps 属性为 props 设置默认值
+
+class HelloMessage extends React.Component {
+  render() {
+    return (
+      <h1>Hello, {this.props.name}</h1>
+    );
+  }
+}
+ 
+HelloMessage.defaultProps = {
+  name: 'Runoob'
+};
+相当于  <HelloMessage  name="Runoob"/>
+
+Props 验证使用 propTypes，它可以保证我们的应用组件被正确使用，
+React.PropTypes 提供很多验证器 (validator) 来验证传入数据是否有效。
+当向 props 传入无效数据时，JavaScript 控制台会抛出警告。
+
+React 事件
+React 事件绑定属性的命名采用驼峰式写法，而不是小写。
+如果采用 JSX 的语法你需要传入一个函数作为事件处理函数，而不是一个字符串(DOM 元素的写法)
+<button   onClick= {activateLasers]}>
+  激活按钮
+</button>
+
+ this.props.children 属性。它表示组件的所有子节点
+
+  React.Children.map(this.props.children,function(child){
+    return <div>{child}</div>
+  })

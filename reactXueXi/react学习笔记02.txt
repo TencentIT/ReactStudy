@@ -1,0 +1,63 @@
+react 写函数的时候 需要在constructor里面 this.handleClick = this.handleClick.bind(this) 初始化这个函数的时候，bind(this)绑定this，
+绑定后handleClick方法里面才能获取到 constructor 里初始化的变量，不绑定的话，会提示
+ Cannot read property 'myTextInput' of undefined
+ 即找不到 handleClick 里面调用 constructor 里初始化的变量
+例子
+   class MyComponent extends React.Component {
+        constructor(props) {
+          super(props);
+          this.myTextInput = React.createRef();
+          this.handleClick = this.handleClick.bind(this)
+          
+        }
+        handleClick(){
+          this.myTextInput.current.focus();
+        }
+        render(){
+          return (
+            <div>
+              <input type="text" ref={this.myTextInput}/>
+              <input type="button" value="按钮" onClick={this.handleClick}/>
+            </div>
+          )
+        }
+      }
+
+this.setState({}) 写法 注意下
+this.setState({
+    value : '我是改变后的值喔😯'
+})
+
+input 获取用户输入的值 event.target.value 读取用户输入的值
+
+组件的生命周期分成三个状态
+Mounting：已插入真实 DOM
+Updating：正在被重新渲染
+Unmounting：已移出真实 DOM
+
+React 为每个状态都提供了两种处理函数，will 函数在进入状态之前调用，did 函数在进入状态之后调用，三种状态共计五种处理函数。
+
+componentWillMount()
+componentDidMount()
+componentWillUpdate(object nextProps, object nextState)
+componentDidUpdate(object prevProps, object prevState)
+componentWillUnmount()
+
+此外，React 还提供两种特殊状态的处理函数。
+
+componentWillReceiveProps(object nextProps)：已加载组件收到新的参数时调用
+shouldComponentUpdate(object nextProps, object nextState)：组件判断是否重新渲染时调用
+
+在生命周期函数里面调用，用定时器获取 state里面变量的时候 需要给定时器绑定this 然后 生命周期函数里面才能取到值
+错误写法
+componentDidMount(){
+    setInterval(function(){
+        let a = this.state.opacity
+    },1000)
+}
+正确写法  用bind 把 class里面的this绑定到  生命周期函数里面
+componentDidMount(){
+    setInterval(function(){
+        let a = this.state.opacity
+    }.bind(this),1000)
+}
