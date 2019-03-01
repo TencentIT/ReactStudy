@@ -1,0 +1,36 @@
+ajax 获取数据 一般写在 componentDidMount 里面 ，注意this需要绑定下 ，或者 用that接一下 
+        componentDidMount(){
+          var that = this;
+          $.get(this.props.source,function(res){
+            console.log(res)
+            that.setState({
+              username : res[0].owner.login,
+              lastGist:res[0].html_url
+            })
+          }) 
+        }
+
+或者
+componentDidMount(){
+          $.get(this.props.source,function(res){
+            console.log(res)
+            that.setState({
+              username : res[0].owner.login,
+              lastGist:res[0].html_url
+            })
+          }).bind(this)
+        }
+
+react 获取dom 节点  html代码 ref 写个节点名字， js里面通过refs  获取dom结构  
+   <input type="text" ref='inputVal'/> 
+ <button onClick={this.add}>增加+</button>
+
+ add =()=>{
+   let a = this.refs.inputVal  //   通过refs  获取dom结构
+ }
+   
+
+如何看接口是否支持jsonp请求？？？？
+在接口后面加上 &callback=111 加上callback 如果依然能获取到数据  则说明 支持
+例如  
+http://www.phonegap100.com/appapi.php?a=getPortalList&catid=20&callback=33333

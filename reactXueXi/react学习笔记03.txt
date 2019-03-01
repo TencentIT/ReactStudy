@@ -1,0 +1,92 @@
+组件的状态提升
+shouldComponentUpdate 组件应该更新吗 ？  这个生命周期函数写的时候 应该return一个 true/false
+注意 写 事件的时候  需要 带上  用箭头函数 例如 onClick={()=>this.func1()} eg:
+  <button onClick = {()=>this.forceUpdate()}>forceUpdate 组件强制更新</button>
+
+默认更新 进行的流程
+constructor 
+ 组件将要加载 componentWillMount
+ render
+ 组件已经加载 componentDidMount
+
+
+this.setState({}) 主动更新 进行的过程
+组件是否应该更新 shouldComponentUpdate
+ 组件将要更新 componentWillUpdate
+ render
+ 组件更新完毕 componentDidUpdate
+
+
+this.forceUpdate() 强制更新 进行的过程
+ constructor 
+ 组件将要加载 componentWillMount
+ render
+ 组件已经加载 componentDidMount
+
+
+ 一般来说  只会在constructor里面做一些 state初始化 ， 不会写其他东西，由于constructor和componentWillMount
+  基本同时出现 ， 做处理正常会写在componentWillMount里面，
+
+
+  ajax请求 正常写在 componentWillMount 或者 componentWillUpdate 里面
+
+  shouldComponentUpdate 返回false时候 就不往下执行  
+
+  17版本 react getDerivedStateFromProps
+
+   static defaultProps = {
+    title : '这个是默认标题'
+  }
+   通过 {this.props.title}  能获取到值
+
+类型检查 通过 prop-types  
+npm install prop-types --d
+import PropTypes from 'prop-types'
+
+  static propTypes = {
+    title : PropTypes.string  // 规定是string类型
+  }
+
+写一个方法的时候 调用问题   不加括号  <button onClick = {this.run}> run </button>
+这种写法 需要绑定当前组件的this  然后在getUserInfo 函数里才能获取到 值 ， 否则会报错undefined
+方法1 在调用这个函数的时候把 绑定当前组件的this 
+                <button onClick = {this.getUserInfo.bind(this )}>getUserInfo</button>
+方法2  在constructor里面初始化的时候 把当前组件的this绑定到这个函数里面去
+    constructor(props){
+            super(props)
+
+            this.state = {
+                name :'demo',
+                userInfo : {
+                    sex:'f',
+                    num:'33333'
+                }
+        }
+
+        this.getMessage = this.getMessage.bind(this) 
+    }
+
+方法3 在写这个函数的时候 把使用箭头函数 ，箭头函数会把组件里面的this指向绑定到函数里面去
+        getNum = ()=>{
+        alert(this.state.userInfo.num)
+    }
+
+如果要想 给一个方法传递参数 应该怎么写呢？
+注意 在调用这个函数的时候，需要.bind(this,‘。。。。’)然后才能传递值，如果直接写 this.setName('....')直接报错
+    setName = (str)=>{
+        this.setState({
+            name:str
+        })
+    }
+
+  <button onClick = {this.setName.bind(this,'womenyiqi')}>setState设置一个变量的值</button>
+
+  传递多个参数的话
+      setName = (str,str2)=>{
+        this.setState({
+            name:str,
+            name2:str2
+        })
+    }
+
+<button onClick = {this.setName.bind(this,'womenyiqi','miaomiao')}>setState设置一个变量的值</button>

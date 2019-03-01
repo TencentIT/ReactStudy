@@ -1,0 +1,33 @@
+react-router 用法
+npm i react-roter -S
+在app.js里面引入
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+用Link to  页面跳转切换
+<Link to='/'>首页</Link>
+<Link to='/news'>新闻</Link>
+
+<Route exact path="/" component={Home} />
+<Route path="/news" component={News} />
+
+注意事项
+1  配置router时候 所有根都应该被 <Router></Router>包含起来
+2 引入时候 注意  Link 需要引入 否则 报错 Link也是一个模块 
+  import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+在 Link 中加入 exact 表示是一个严格匹配
+   <Link to='/' exact>首页</Link>  
+
+
+动态路由 配置
+ <Route path="/Content/:id" component={Content} />
+
+传值写法    注意 写ES6 ``  符号 需要套一个{} 
+  <Link to={`/content/${item.id}`}> </Link>
+页面跳转 获取传值
+'获取传递过来的ID',this.props.match.params.id
+
+
+get 方式获取传递过来的值 拼一个参数 传递过去  
+ <Link to ={`/ProductContent?id=${this.props.match.params.id}`}>我是新闻{this.props.match.params.id}</Link>
+获取到传递过来的值 {this.props.location.search
