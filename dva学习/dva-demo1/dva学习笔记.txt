@@ -1,0 +1,47 @@
+export default {
+  namespace: 'products',
+  state: [],
+  reducers: {
+    'delete'(state, { payload: id }) {
+      return state.filter(item => item.id !== id);
+    },
+  },
+};
+
+namespace 表示在全局 state 上的 key
+state 是初始值，在这里是空数组
+reducers 等同于 redux 里的 reducer，接收 action，同步更新 state
+
+
+数据的改变发生通常是通过用户交互行为或者浏览器行为（如路由跳转等）触发的，当此类行为会改变数据的时候可以通过 dispatch 发起一个 action，
+如果是同步行为会直接通过 Reducers 改变 State ，如果是异步行为（副作用）会先触发 Effects 然后流向 Reducers 最终改变 State，所以在 dva 中
+，数据流向非常清晰简明，并且思路基本跟开源社区保持一致（也是来自于开源社区）
+
+https://zos.alipayobjects.com/rmsportal/PPrerEAKbIoDZYr.png
+
+
+dispatch 函数
+type dispatch = (a: Action) => Action
+
+dispatching function 是一个用于触发 action 的函数，action 是改变 State 的唯一途径，
+但是它只描述了一个行为，而 dipatch 可以看作是触发这个行为的方式，而 Reducer 则是描述如何改变数据的。
+
+在 dva 中，connect Model 的组件通过 props 可以访问到 dispatch，可以调用 Model 中的 Reducer 或者 Effects，常见的形式如：
+
+dispatch({
+  type: 'user/add', // 如果在 model 外调用，需要添加 namespace
+  payload: {}, // 需要传递的信息
+});
+
+
+Effect
+Effect 被称为副作用，在我们的应用中，最常见的就是异步操作。
+它来自于函数编程的概念，之所以叫副作用是因为它使得我们的函数变得不纯，同样的输入不一定获得同样的输出。
+
+Reducer
+type Reducer<S, A> = (state: S, action: A) => S
+
+Reducer（也称为 reducing function）函数接受两个参数：之前已经累积运算的结果和当前要被累积的值，返回的是一个新的累积结果。
+该函数把一个集合归并成一个单值。
+
+Reducer 的概念来自于是函数式编程，很多语言中都有 reduce API。如在 javascript 中：

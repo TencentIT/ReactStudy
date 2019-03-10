@@ -31,3 +31,67 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 get 方式获取传递过来的值 拼一个参数 传递过去  
  <Link to ={`/ProductContent?id=${this.props.match.params.id}`}>我是新闻{this.props.match.params.id}</Link>
 获取到传递过来的值 {this.props.location.search
+
+请求数据的时候 还是应该放在 componentDidMount 里面 ，如果放在componentWillMount里面，如果请求比较快，render里面拿不到数据
+
+
+ <Redirect to = '/' /> 可以实现跳转
+
+ 二级路由如何实现  公司级别写法
+router.js 文件里面这么写 
+ {
+    path:'/user',
+    component:User,
+    routes:[
+      {
+          path:'/user/',
+          component:Main
+      },
+      {
+          path:'/user/info',
+          component:Info
+      }
+  
+    ]
+  },
+
+
+ App.js 文件写法
+  {/* 对 routes 进行遍历   */}
+  {
+  routes.map((route,key)=>{
+    if(route.exact){
+      return <Route key={key}  exact path={route.path}
+        render = {props=>(
+          <route.component {...props} routes={route.routes} />
+        )}
+      />
+    }else {
+      return <Route key={key}   path={route.path} 
+        render = { props => (
+          <route.component  {...props} routes={route.routes}/>
+        )}
+      />
+    }
+  })
+  }
+
+  使用的二级路由的文件 user.js 的写法
+
+   <div className="right">
+
+      {/* 公司级 写法 通过父子传参，从App.js 传递 ，把 二级路由放到了props里面，在componentWillMount打印this.props
+          就能看到里面有 router.js 里面的信息 二级路由 routes 里面传递过来的属性
+      */}
+      {
+          this.props.routes.map((item,key)=>{
+              return <Route exact path={item.path} component={item.component}/>
+          })
+      }
+
+
+      {/* 最原始的写法 */}
+      {/* <Route path='/user/info' component={Info}/>
+      <Route exact key={key} path='/user/' component={Main}/> */}
+
+  </div>

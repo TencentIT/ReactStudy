@@ -10,7 +10,7 @@ React DOM 使用 className 和 htmlFor 来做对应的属性。
 
 
 React 推荐使用内联样式。我们可以使用 camelCase 语法来设置内联样式. React 会在指定元素数字后自动添加 px 
-注释需要写在花括号中 {/*注释...*/}
+注释需要写在花括号中 {/*注释...*/} className=''
 JSX 允许在模板中插入数组，数组会自动展开所有成员：
 
 注意，原生 HTML 元素名以小写字母开头，而自定义的 React 类名以大写字母开头，
@@ -19,6 +19,9 @@ JSX 允许在模板中插入数组，数组会自动展开所有成员：
  class 属性需要写成 className ，for 属性需要写成 htmlFor ，这是因为 class 和 for 是 JavaScript 的保留字。
 
  React 里，只需更新组件的 state，然后根据新的 state 重新渲染用户界面（不要操作 DOM）。
+react state  
+vue  m=>v  v=>m  
+vue  v-model 
 
   ES6 要求，子类的构造函数必须执行一次 super 函数，否则会报错。 所以这里constructor里面必须写句 super(props);
   子组件继承父组件的话， 如果没写 constructor 的话 ，默认还有一个 constructor

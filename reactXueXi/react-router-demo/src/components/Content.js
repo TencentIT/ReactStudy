@@ -8,7 +8,7 @@ class Content extends Component {
     }
 
     componentDidMount(){
-        console.log(this.props)
+        console.log(this.s)
         console.log('获取传递过来的ID',this.props.match.params.id)
     }
     render() {

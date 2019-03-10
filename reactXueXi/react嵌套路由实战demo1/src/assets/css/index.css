@@ -1,0 +1,40 @@
+@charset "UTF-8";
+body, div, ul, li, ol, h1, h2, h3, h4, h5, h6, input, textarea, select, p, dl, dt, dd, a, img, button, form, table, th, tr, td, tbody, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  margin: 0;
+  padding: 0; }
+
+.title{
+    height: 44px;
+    line-height:44px;
+  
+    background: #000;
+    
+  
+  }
+
+
+.title a{
+    color:#fff;
+    padding:0 20px;
+  
+  }
+  
+.content{
+    display: flex;
+    width:100%;
+    height: 500px;
+}
+.content .left {
+    width:200px;
+    
+}
+.content .right{
+    flex:1;
+    border:1px solid #ddd;
+
+}
+.content  a{
+    display: block;
+    border:1px solid greenyellow;
+    color:#000;
+}
