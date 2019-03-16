@@ -20,3 +20,11 @@ export default (state = defaultState,actions) => {  // state 指的是 笔记本
 } 
 
 reducer 返回的必须是一个函数，里面有两个参数，state，action 
+
+redux 里面   组件通过 store.dispatch(action) 通过dispatch把东西传递给store ，dispatch本意思就是 派发的意思
+
+reducer里面的state存的是上一次store存的数据， action指的是用户传递过来的那句话 
+经过reducer处理过后，返回一个新数据 替换掉 store里面的老数据
+
+通过store.subscribe 把reducer传递过去的 state新值 映射到 组件中 
+ store.subscribe

@@ -31,17 +31,18 @@ this.setState({
 input 获取用户输入的值 event.target.value 读取用户输入的值
 
 组件的生命周期分成三个状态
-Mounting：已插入真实 DOM
-Updating：正在被重新渲染
-Unmounting：已移出真实 DOM
+
+    Mounting：已插入真实 DOM
+    Updating：正在被重新渲染
+    Unmounting：已移出真实 DOM
 
 React 为每个状态都提供了两种处理函数，will 函数在进入状态之前调用，did 函数在进入状态之后调用，三种状态共计五种处理函数。
 
-componentWillMount()
-componentDidMount()
-componentWillUpdate(object nextProps, object nextState)
-componentDidUpdate(object prevProps, object prevState)
-componentWillUnmount()
+    componentWillMount()
+    componentDidMount()
+    componentWillUpdate(object nextProps, object nextState)
+    componentDidUpdate(object prevProps, object prevState)
+    componentWillUnmount()
 
 此外，React 还提供两种特殊状态的处理函数。
 
@@ -50,14 +51,18 @@ shouldComponentUpdate(object nextProps, object nextState)：组件判断是否�
 
 在生命周期函数里面调用，用定时器获取 state里面变量的时候 需要给定时器绑定this 然后 生命周期函数里面才能取到值
 错误写法
-componentDidMount(){
-    setInterval(function(){
-        let a = this.state.opacity
-    },1000)
-}
+
+    componentDidMount(){
+        setInterval(function(){
+            let a = this.state.opacity
+        },1000)
+    }
+
 正确写法  用bind 把 class里面的this绑定到  生命周期函数里面
-componentDidMount(){
-    setInterval(function(){
-        let a = this.state.opacity
-    }.bind(this),1000)
-}
+
+    componentDidMount(){
+        setInterval(function(){
+            let a = this.state.opacity
+        }.bind(this),1000)
+    }
+
