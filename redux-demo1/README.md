@@ -28,3 +28,5 @@ reducer里面的state存的是上一次store存的数据， action指的是用�
 
 通过store.subscribe 把reducer传递过去的 state新值 映射到 组件中 
  store.subscribe
+
+

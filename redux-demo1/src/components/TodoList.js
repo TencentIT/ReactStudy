@@ -10,8 +10,10 @@ class TodoList extends Component {
         console.log(this.state)
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleStorechange = this.handleStorechange.bind(this)
+        this.handleBtnClick = this.handleBtnClick.bind(this)
 
         store.subscribe(this.handleStorechange)   // 通过store.subscribe 把reducer传递过去的 state新值 映射到 组件中 
+         
     }
     handleInputChange(e){
         const action = {
@@ -25,11 +27,18 @@ class TodoList extends Component {
 
         this.setState( store.getState()) // 从store里面重新取改变后的新数据 
     }
+    handleBtnClick(){
+        const action = {
+            type :'add_todo_item'
+        }
+
+        store.dispatch(action )
+    }
     render() {
         return (
             <div className='todolist_box'>
                   <Input placeholder="Basic usage" value = {this.state.inputValue} onChange = {this.handleInputChange}/> 
-                  <Button type="primary">Primary</Button>
+                  <Button type="primary" onClick={this.handleBtnClick }>Primary</Button>
 
                   <List
                     header={<div>Header</div>}

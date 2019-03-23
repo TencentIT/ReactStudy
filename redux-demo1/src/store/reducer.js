@@ -12,5 +12,15 @@ export default (state = defaultState,action) => {  // state 指的是 笔记本�
 
         return newState
     }
+
+    if(action.type='add_todo_item'){
+        const newState = JSON.parse(JSON.stringify(state)) // 把传递过来的值复制一份 
+
+        newState.list.push(newState.inputValue)
+
+        newState.inputValue = ''
+        console.log(newState)
+    }
+
     return state;
 }
