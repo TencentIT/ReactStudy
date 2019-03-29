@@ -30,3 +30,21 @@ reducer里面的state存的是上一次store存的数据， action指的是用�
  store.subscribe
 
 
+数据是怎么更新的呢？ 不是reducer 更新的，只不过是通过 在reducer里面做处理，然后把处理后的数据返回给store，是store自己更新数据的
+
+
+设计使用原则 
+1 store只有一个
+2 只有store自己能改变自己的内容 
+
+reducer是一个纯函数
+纯函数指的是 ：给定固定的输入，就一定会有固定的输出，而且不会有任何副作用
+也就是说 reducer里面不能有 异步操作，以及与时间相关的操作
+什么叫副作用呢？ 比如reducer里面对传入的参数进行修改，这就叫副作用，reducer里面 不要对 传入的灿顺进行修改 ，一旦修改的话，
+reducer就不是纯函数了 
+
+redux核心API
+createStore 创建一个store
+store.dispatch() 帮助我们派发一个action 
+store.getState() 帮助我们获取到state里面所有的数据内容 
+store.subscribe  可以订阅 store数据的改变 ，只要数据发生改变，store.subscribe接受的回调函数就会被执行 
