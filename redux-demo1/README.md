@@ -48,3 +48,39 @@ createStore 创建一个store
 store.dispatch() 帮助我们派发一个action 
 store.getState() 帮助我们获取到state里面所有的数据内容 
 store.subscribe  可以订阅 store数据的改变 ，只要数据发生改变，store.subscribe接受的回调函数就会被执行 
+
+无状态组件性能更优 为什么 ？
+因为  无状态组件 是一个函数， 例如
+const TodoListUI = (props) => {
+    return (
+        <div className='todolist_box'>
+            <Input placeholder="Basic usage" value = {this.props.inputValue} onChange = {this.props.handleInputChange}/> 
+            <Button type="primary" onClick={this.props.handleBtnClick }>添加</Button>
+            <List.Item
+            bordered
+            dataSource={this.props.list}
+            renderItem={(item,index) => (<List.Item onClick={(index) => { this.props.handleItemDelete(index) }} >{item}</List.Item>)}
+            />
+        </div>
+    )
+}
+而 普通 class类 render 里面 
+class TodoListUI extends Component {
+    state = {  }
+    render() {
+        return (
+            <div className='todolist_box'>
+                <Input placeholder="Basic usage" value = {this.props.inputValue} onChange = {this.props.handleInputChange}/> 
+                <Button type="primary" onClick={this.props.handleBtnClick }>添加</Button>
+                <List.Item
+                bordered
+                dataSource={this.props.list}
+                renderItem={(item,index) => (<List.Item onClick={(index) => { this.props.handleItemDelete(index) }} >{item}</List.Item>)}
+                />
+             </div>
+        );
+    }
+} 
+是一个类，类里面有生命周期，执行起来，既要执行 render ，又要执行  生命周期函数 
+所以一个普通组件的性能，肯定是赶不上 无状态组件的 
+如果一个文件只有render，建议用无状态组件  
