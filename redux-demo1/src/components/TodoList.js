@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-
 import store from '../store/index'
-import { getInputChangeAction ,getAddItemAction , getDeleteItemAction} from  '../store/actionCreators'
+import { getInputChangeAction ,getAddItemAction , getDeleteItemAction, initListAction} from  '../store/actionCreators'
 import TodoListUI from './TodoListUI'
+import axios from 'axios'
 
 class TodoList extends Component {
     constructor(props){ 
@@ -17,6 +17,15 @@ class TodoList extends Component {
         store.subscribe(this.handleStorechange)   // 监听 store 里面值的变化 
          
     }
+
+    componentDidMount() {
+        axios.get('./list.json').then((res)=>{
+            const data = res.data
+             const action = initListAction(data)
+
+        })
+    }
+
     handleInputChange(e){
         const action = getInputChangeAction(e.target.value)
         store.dispatch(action)
