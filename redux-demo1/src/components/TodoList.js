@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import store from '../store/index'
-import {getTodoList, getInputChangeAction ,getAddItemAction , getDeleteItemAction, initListAction} from  '../store/actionCreators'
+import {getInitList, initListAction, getInputChangeAction ,getAddItemAction , getDeleteItemAction, initListAction} from  '../store/actionCreators'
 import TodoListUI from './TodoListUI'
-
+import axios from 'axios'   
 
 class TodoList extends Component {
     constructor(props){ 
         super(props)
-        this.state = store.getState()
-        console.log(this.state)
+        this.state = store.getState()s
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleStorechange = this.handleStorechange.bind(this)
         this.handleBtnClick = this.handleBtnClick.bind(this)
@@ -19,12 +18,17 @@ class TodoList extends Component {
     }
 
     componentDidMount() {
-         const action  = getTodoList( )
+        // redux-thunk 写法
+        //  const action  = getTodoList() 
+
         // axios.get('./list.json').then((res)=>{
         //     const data = res.data
         //      const action = initListAction(data)
         //     store.dispatch(action)
         // })
+
+        // redux-saga 写法
+        const action = getInitList()
     }
 
     handleInputChange(e){
