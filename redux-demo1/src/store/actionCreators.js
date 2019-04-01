@@ -20,6 +20,7 @@ export default initListAction = (data) => ({
      data 
 })
 
+// 这里就是通过redux-thunk 把异步代码放到 action 里面去
 export default getTodoList = () => {
     return (dispatch) => {
         axios.get('./list.json').then((res)=>{
